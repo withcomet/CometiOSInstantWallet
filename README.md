@@ -1,6 +1,6 @@
 # Comet iOS SDK - Instant Wallet
 
-[![Version](https://img.shields.io/badge/Release-0.5.1-blue.svg)](https://github.com/withcomet/CometiOSInstantWallet/releases)
+[![Version](https://img.shields.io/badge/Release-0.5.2-blue.svg)](https://github.com/withcomet/CometiOSInstantWallet/releases)
 [![Language Swift](https://img.shields.io/badge/Pure-Swift-1f425f.svg)](https://withcomet.com)
 [![Made by Comet](https://img.shields.io/badge/Made%20by-Comet-%23d98a44.svg)](https://withcomet.com)
 
