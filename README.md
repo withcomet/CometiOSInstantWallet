@@ -1,4 +1,4 @@
-# Comet iOS SDK: Instant Wallet
+# Comet iOS SDK - Instant Wallet
 
 [![Version](https://img.shields.io/badge/Release-0.5.1-blue.svg)](https://github.com/withcomet/CometiOSInstantWallet/releases)
 [![Made with Comet](https://img.shields.io/badge/Made%20with-Comet-%23d98a44.svg)](https://withcomet.com)
@@ -9,9 +9,9 @@
 
 ## Overview
 
-Allow your users to instantly create a Solana wallet using just their phone number or email. Users can login and create a wallet with only 3 lines of code.
+Allow your users to instantly create a Solana wallet using just their phone number or email. Users can login and create a wallet with only a couple lines of code.
 
-You can also pull any Comet NFT's and their metadata, launch collections, and sell/transfer NFT's effortlessly. Ethereum support is on the way! 
+You can also pull any Comet NFTs and their metadata, launch collections, and sell/transfer NFTs effortlessly. Ethereum support is on the way! 
 
 Welcome to iOS's first instant wallet API with extensive features and support, bringing Web 3.0 to the iOS world!
 
@@ -27,23 +27,21 @@ Go to `File | Swift Packages | Add Package Dependency...` in Xcode and search fo
 
 ### Instant Wallet Creation
 
-Add to the top of every page you use the SDK:
-
 ````swift
 import CometWalletClient
 ````
 
-#### Step 1: user login:
+#### User login:
 
 ````swift
 let walletClient = CometWalletClient(environment: .prod)
 
 func sendLoginCode() {
     walletClient.sendLoginCode(phoneOrEmailInput: "USER_NUMBER_OR_EMAIL") { result in
-        
+
         switch result {
         case .success(_):
-            print("Sent code to user's device")
+            print("Comet has sent a code to the user's device")
         case .failure(let error):
             print(error.localizedDescription)
         }
@@ -68,7 +66,7 @@ func verifyLoginCode() {
 }
 ````
 
-#### Step 2: wallet creation:
+#### Wallet creation:
 
 ````swift
 func createWallet(userAuthToken: String) {
@@ -80,9 +78,9 @@ func createWallet(userAuthToken: String) {
 }
 ````
 
-### NFTs in wallet:
+### NFTs
 
-#### Get full NFT list:
+#### Get all NFTs in wallet:
 
 ````swift
 let nftClient = CometNFTClient(cometUserWallet: cometUserWallet)
