@@ -4,7 +4,7 @@
 [![Made with Comet](https://img.shields.io/badge/Made%20with-Comet-black?style=for-the-badge)](https://withcomet.com)
 
 <p align="center">
-  <img src="https://www.withcomet.com/comet.png" />
+  <img src="https://www.withcomet.com/comet.png" height="50" />
 </p>
 
 ## Overview
