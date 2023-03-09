@@ -9,17 +9,19 @@ import Foundation
 
 public class CometNFTClient {
     var cometApiClient: CometApiClient
-    public init(environment: CometEnvironmentType, userCometAuthKey: String? = nil) {
-        self.cometApiClient = CometApiClient(userCometAuthKey: userCometAuthKey, configManager: CometConfigManager(environment: environment))
+    var cometUserWallet: CometUserWallet
+    public init(cometUserWallet: CometUserWallet) {
+        self.cometApiClient = CometApiClient(userCometAuthKey: cometUserWallet.privateKey, configManager: CometConfigManager(environment: cometUserWallet.environment))
+        self.cometUserWallet = cometUserWallet
     }
-    public func getNFTList(userWallet: CometUserWallet, listener: @escaping (Result<[TokenModel], Error>) -> Void) {
+    public func getNFTList(listener: @escaping (Result<[CometNFTTokenModel], Error>) -> Void) {
         Task {
             do {
-                var tokens: [TokenModel] = []
-                let (data, resp) = try await cometApiClient.baseCometCall(url: cometApiClient.configManager.baseConfig.cometTokenApi.replacingOccurrences(of: "${snowballAddress}", with: userWallet.address), postType: "GET")
+                var tokens: [CometNFTTokenModel] = []
+                let (data, resp) = try await cometApiClient.baseCometCall(url: cometApiClient.configManager.baseConfig.cometTokenApi.replacingOccurrences(of: "${snowballAddress}", with: self.cometUserWallet.address), postType: "GET")
                 
                 resp.handleResponse(data: data, defaultErrorMsg: "Failed getNFTList's call to Comet API.", listener: listener) {
-                    var tokenModels = try JSONDecoder().decode([TokenModel].self, from: data)
+                    var tokenModels = try JSONDecoder().decode([CometNFTTokenModel].self, from: data)
                     for (index, token) in tokenModels.enumerated() {
                         if let tokenId = token.image?.slice(from: "token/", to: "/metadata") {
                             tokenModels[index].id = tokenId
@@ -34,13 +36,13 @@ public class CometNFTClient {
             }
         }
     }
-    public func getNFTMetadata(token: TokenModel, listener: @escaping (Result<TokenModel.NFTDetailsModel, Error>) -> Void) {
+    public func getNFTMetadata(token: CometNFTTokenModel, listener: @escaping (Result<CometNFTTokenModel.NFTDetailsModel, Error>) -> Void) {
         Task {
             do {
                 let (data, resp) = try await cometApiClient.baseCometCall(url: cometApiClient.configManager.baseConfig.token.definition.replacingOccurrences(of: "${tokenId}", with: token.id), postType: "GET")
                 
                 resp.handleResponse(data: data, defaultErrorMsg: "Failed getNFTMetadata's call to Comet API.", listener: listener) {
-                    let nftDetailsModel = try JSONDecoder().decode(TokenModel.NFTDetailsModel.self, from: data)
+                    let nftDetailsModel = try JSONDecoder().decode(CometNFTTokenModel.NFTDetailsModel.self, from: data)
                     return nftDetailsModel
                 }
             } catch {

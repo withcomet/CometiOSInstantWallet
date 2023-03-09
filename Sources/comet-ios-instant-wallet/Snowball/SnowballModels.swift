@@ -12,6 +12,7 @@ public struct CometUserWallet: Decodable, Hashable {
     public var privateKey: String
     public var chainId: Int
     public var chainType: String
+    public var environment: CometEnvironmentType
 }
 
 struct CognitoModel: Codable {

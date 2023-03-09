@@ -113,7 +113,7 @@ class SnowballClient {
         kmsClient!.decrypt(decrypt!).continueWith { (task: AWSTask<AWSKMSDecryptResponse>) -> Any? in
             let response = task.result
             DispatchQueue.main.async {
-                let userWallet = CometUserWallet(address: snowballModel.address, privateKey: response?.plaintext?.utf8String ?? "", chainId: self.cometApiClient.configManager.envConfig.solanaChainCode, chainType: "solana")
+                let userWallet = CometUserWallet(address: snowballModel.address, privateKey: response?.plaintext?.utf8String ?? "", chainId: self.cometApiClient.configManager.envConfig.solanaChainCode, chainType: "solana", environment: self.cometApiClient.configManager.env)
                 if let _ = self.walletListener {
                     self.walletListener!(userWallet)
                 }
@@ -128,7 +128,7 @@ class SnowballClient {
         if let address = account?.publicKey.base58EncodedString,
            let pKey = account?.secretKey {
             let privateKey = Base58.encode([UInt8](pKey))
-            return CometUserWallet(address: address, privateKey: privateKey, chainId: self.cometApiClient.configManager.envConfig.solanaChainCode, chainType: "solana")
+            return CometUserWallet(address: address, privateKey: privateKey, chainId: self.cometApiClient.configManager.envConfig.solanaChainCode, chainType: "solana", environment: self.cometApiClient.configManager.env)
         }
         return nil
     }

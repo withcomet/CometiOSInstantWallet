@@ -42,7 +42,7 @@ public class CometWalletClient {
     /*
      * Verify entered login code is correct
      */
-    public func verifyLoginCode(phoneOrEmailInput: String, verificationCode: String, listener: @escaping (Result<VerifyLoginCodeModel, Error>) -> Void) {
+    public func verifyLoginCode(phoneOrEmailInput: String, verificationCode: String, listener: @escaping (Result<CometVerifyLoginCodeModel, Error>) -> Void) {
         let isEmail = Helpers.isEmail(input: phoneOrEmailInput)
         let configManager = CometConfigManager(environment: environment)
         let uriConfig = isEmail ? configManager.baseConfig.cometAuth.email : configManager.baseConfig.cometAuth.phone
@@ -57,7 +57,7 @@ public class CometWalletClient {
                     url: uriConfig.verify,
                     postType: "POST",
                     data: parametersString)
-               let verifyLoginCodeModel = try JSONDecoder().decode(VerifyLoginCodeModel.self, from: data)
+               let verifyLoginCodeModel = try JSONDecoder().decode(CometVerifyLoginCodeModel.self, from: data)
                 resp.handleResponse(data: data, defaultErrorMsg: "Failed to verify login code.", listener: listener) {
                     return verifyLoginCodeModel
                 }
@@ -70,12 +70,12 @@ public class CometWalletClient {
     /*
      * If user has wallet return existing wallet, else return a new wallet for them.
      */
-    public func initializeWallet(userCometAuthKey: String, walletListener: ((CometUserWallet) -> Void)? = nil) {
+    public func initializeWallet(userCometAuthKey: String, walletListener: @escaping ((CometUserWallet) -> Void)) {
         let configManager = CometConfigManager(environment: environment)
         let snowballClient = SnowballClient(cometApiClient: CometApiClient(userCometAuthKey: userCometAuthKey, configManager: configManager), walletListener: walletListener)
         snowballClient.getCognitoIdentity()
     }
 }
-public enum CometEnvironmentType {
+public enum CometEnvironmentType: Decodable {
     case dev, prod
 }
