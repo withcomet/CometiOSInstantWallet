@@ -6,7 +6,7 @@
 //
 
 import Foundation
-struct Posts: Decodable {
+public struct Posts: Decodable {
     var posts: [Post]
 }
 struct Comments: Decodable {

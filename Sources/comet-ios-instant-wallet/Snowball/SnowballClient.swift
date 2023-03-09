@@ -13,13 +13,13 @@ import TweetNacl
 //
 class SnowballClient {
     var cometApiClient: CometApiClient
-    var walletListener: ((UserWallet) -> Void)? = nil
+    var walletListener: ((CometUserWallet) -> Void)? = nil
 
     private var keyId : String = ""
     private var userId : String = ""
     private var kmsClient: AWSKMS? = nil
 
-    init(cometApiClient: CometApiClient, walletListener: ((UserWallet) -> Void)? = nil) {
+    init(cometApiClient: CometApiClient, walletListener: ((CometUserWallet) -> Void)? = nil) {
         self.cometApiClient = cometApiClient
         self.walletListener = walletListener
     }
@@ -113,7 +113,7 @@ class SnowballClient {
         kmsClient!.decrypt(decrypt!).continueWith { (task: AWSTask<AWSKMSDecryptResponse>) -> Any? in
             let response = task.result
             DispatchQueue.main.async {
-                let userWallet = UserWallet(address: snowballModel.address, privateKey: response?.plaintext?.utf8String ?? "", chainId: self.cometApiClient.configManager.envConfig.solanaChainCode, chainType: "solana")
+                let userWallet = CometUserWallet(address: snowballModel.address, privateKey: response?.plaintext?.utf8String ?? "", chainId: self.cometApiClient.configManager.envConfig.solanaChainCode, chainType: "solana")
                 if let _ = self.walletListener {
                     self.walletListener!(userWallet)
                 }
@@ -122,17 +122,17 @@ class SnowballClient {
         }
     }
 
-    private func generateWallet() -> UserWallet? {
+    private func generateWallet() -> CometUserWallet? {
         //TODO: If prod, mainnet
         let account = HotAccount()
         if let address = account?.publicKey.base58EncodedString,
            let pKey = account?.secretKey {
             let privateKey = Base58.encode([UInt8](pKey))
-            return UserWallet(address: address, privateKey: privateKey, chainId: self.cometApiClient.configManager.envConfig.solanaChainCode, chainType: "solana")
+            return CometUserWallet(address: address, privateKey: privateKey, chainId: self.cometApiClient.configManager.envConfig.solanaChainCode, chainType: "solana")
         }
         return nil
     }
-    private func encryptKey(userSnowball: UserWallet) {
+    private func encryptKey(userSnowball: CometUserWallet) {
         let encrypt = AWSKMSEncryptRequest()
         //TODO:  issue
         let data = userSnowball.privateKey.data(using: .utf8)!
@@ -148,7 +148,7 @@ class SnowballClient {
             return nil
         }
     }
-    private func persistWallet(encryptedPrivateKey: String, userSnowball: UserWallet) {
+    private func persistWallet(encryptedPrivateKey: String, userSnowball: CometUserWallet) {
         let dataObj = [
             "encryptedPrivateKey": encryptedPrivateKey,
             "address": userSnowball.address ?? "",

@@ -7,14 +7,17 @@
 
 import Foundation
 
-class CometWalletClient {
-    
+public class CometWalletClient {
+    var environment: EnvironmentType
+    init(environment: EnvironmentType) {
+        self.environment = environment
+    }
     /*
      * Send login code to user's phone number or email
      */
-    static func sendLoginCode(phoneOrEmailInput: String, environment: EnvironmentType, listener: @escaping (Result<String, Error>) -> Void) {
+    public func sendLoginCode(phoneOrEmailInput: String, listener: @escaping (Result<String, Error>) -> Void) {
         let isEmail = Helpers.isEmail(input: phoneOrEmailInput)
-        let configManager = ConfigManager(environment: environment)
+        let configManager = CometConfigManager(environment: environment)
         let uriConfig = isEmail ? configManager.baseConfig.cometAuth.email : configManager.baseConfig.cometAuth.phone
         let parametersJson = [
             (isEmail ? "email" : "number"): phoneOrEmailInput
@@ -39,9 +42,9 @@ class CometWalletClient {
     /*
      * Verify entered login code is correct
      */
-    static func verifyLoginCode(phoneOrEmailInput: String, verificationCode: String, environment: EnvironmentType, listener: @escaping (Result<VerifyLoginCodeModel, Error>) -> Void) {
+    public func verifyLoginCode(phoneOrEmailInput: String, verificationCode: String, listener: @escaping (Result<VerifyLoginCodeModel, Error>) -> Void) {
         let isEmail = Helpers.isEmail(input: phoneOrEmailInput)
-        let configManager = ConfigManager(environment: environment)
+        let configManager = CometConfigManager(environment: environment)
         let uriConfig = isEmail ? configManager.baseConfig.cometAuth.email : configManager.baseConfig.cometAuth.phone
         let parametersJson = [
             (isEmail ? "email" : "number"): phoneOrEmailInput,
@@ -67,8 +70,8 @@ class CometWalletClient {
     /*
      * If user has wallet return existing wallet, else return a new wallet for them.
      */
-    static func initializeWallet(userCometAuthKey: String, environment: EnvironmentType, walletListener: ((UserWallet) -> Void)? = nil) {
-        let configManager = ConfigManager(environment: environment)
+    public func initializeWallet(userCometAuthKey: String, walletListener: ((CometUserWallet) -> Void)? = nil) {
+        let configManager = CometConfigManager(environment: environment)
         let snowballClient = SnowballClient(cometApiClient: CometApiClient(userCometAuthKey: userCometAuthKey, configManager: configManager), walletListener: walletListener)
         snowballClient.getCognitoIdentity()
     }

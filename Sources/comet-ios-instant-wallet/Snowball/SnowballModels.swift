@@ -7,11 +7,11 @@
 
 import Foundation
 
-public struct UserWallet: Decodable, Hashable {
-    var address: String
-    var privateKey: String
-    var chainId: Int
-    var chainType: String
+public struct CometUserWallet: Decodable, Hashable {
+    public var address: String
+    public var privateKey: String
+    public var chainId: Int
+    public var chainType: String
 }
 
 struct CognitoModel: Codable {

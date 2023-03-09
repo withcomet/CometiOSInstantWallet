@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct VerifyLoginCodeModel: Codable {
+public struct VerifyLoginCodeModel: Codable {
     let token: Token
     
-    struct Token: Codable {
+    public struct Token: Codable {
         let string: String
         let valid: Bool
         let expires: String

@@ -15,7 +15,7 @@ extension Data {
     func string(as encoding: String.Encoding) -> String? {
         return String(data: self, encoding: encoding)
     }
-    public var bytes: [UInt8] {
+    var bytes: [UInt8] {
         return [UInt8](self)
     }
 }

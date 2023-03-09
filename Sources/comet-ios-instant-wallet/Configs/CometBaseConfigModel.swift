@@ -5,7 +5,7 @@
 //  Created by Ishan Pandey on 3/8/23.
 //
 
-public struct BaseConfigModel: Codable {
+struct CometBaseConfigModel: Codable {
     let cometAuth: CometAuth
     let token: Token
     let cometTokenApi: String

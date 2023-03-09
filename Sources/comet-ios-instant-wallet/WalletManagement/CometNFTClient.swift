@@ -7,8 +7,12 @@
 
 import Foundation
 
-public class NFTClient {
-    public func getNFTList(userWallet: UserWallet, cometApiClient: CometApiClient, listener: @escaping (Result<[TokenModel], Error>) -> Void) {
+public class CometNFTClient {
+    var cometApiClient: CometApiClient
+    init(environment: EnvironmentType, userCometAuthKey: String? = nil) {
+        self.cometApiClient = CometApiClient(userCometAuthKey: userCometAuthKey, configManager: CometConfigManager(environment: environment))
+    }
+    public func getNFTList(userWallet: CometUserWallet, listener: @escaping (Result<[TokenModel], Error>) -> Void) {
         Task {
             do {
                 var tokens: [TokenModel] = []
@@ -30,8 +34,7 @@ public class NFTClient {
             }
         }
     }
-    
-    public func getNFTMetadata(token: TokenModel, cometApiClient: CometApiClient, listener: @escaping (Result<TokenModel.NFTDetailsModel, Error>) -> Void) {
+    public func getNFTMetadata(token: TokenModel, listener: @escaping (Result<TokenModel.NFTDetailsModel, Error>) -> Void) {
         Task {
             do {
                 let (data, resp) = try await cometApiClient.baseCometCall(url: cometApiClient.configManager.baseConfig.token.definition.replacingOccurrences(of: "${tokenId}", with: token.id), postType: "GET")
