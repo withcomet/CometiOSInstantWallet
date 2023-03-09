@@ -9,7 +9,7 @@ import Foundation
 
 public class CometNFTClient {
     var cometApiClient: CometApiClient
-    public init(environment: EnvironmentType, userCometAuthKey: String? = nil) {
+    public init(environment: CometEnvironmentType, userCometAuthKey: String? = nil) {
         self.cometApiClient = CometApiClient(userCometAuthKey: userCometAuthKey, configManager: CometConfigManager(environment: environment))
     }
     public func getNFTList(userWallet: CometUserWallet, listener: @escaping (Result<[TokenModel], Error>) -> Void) {

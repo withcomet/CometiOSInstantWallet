@@ -9,10 +9,10 @@ import Foundation
 import Yams
 
 class CometConfigManager {
-    let env : EnvironmentType
+    let env : CometEnvironmentType
     var baseConfig : CometBaseConfigModel
     var envConfig : CometEnvConfig.Environment
-    init(environment: EnvironmentType) {
+    init(environment: CometEnvironmentType) {
         let baseConfigData = Helpers.getDataFromFile(fileName: "BaseConfig", type: "yaml")!
         baseConfig = try! YAMLDecoder().decode(CometBaseConfigModel.self, from: baseConfigData)
 

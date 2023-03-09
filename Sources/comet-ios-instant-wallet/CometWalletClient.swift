@@ -8,8 +8,8 @@
 import Foundation
 
 public class CometWalletClient {
-    var environment: EnvironmentType
-    public init(environment: EnvironmentType) {
+    var environment: CometEnvironmentType
+    public init(environment: CometEnvironmentType) {
         self.environment = environment
     }
     /*
@@ -76,6 +76,6 @@ public class CometWalletClient {
         snowballClient.getCognitoIdentity()
     }
 }
-public enum EnvironmentType {
+public enum CometEnvironmentType {
     case dev, prod
 }
