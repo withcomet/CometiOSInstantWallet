@@ -9,7 +9,7 @@ import Foundation
 
 public class CometWalletClient {
     var environment: EnvironmentType
-    init(environment: EnvironmentType) {
+    public init(environment: EnvironmentType) {
         self.environment = environment
     }
     /*
