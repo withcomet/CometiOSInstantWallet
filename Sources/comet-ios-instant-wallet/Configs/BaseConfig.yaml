@@ -1,0 +1,47 @@
+---
+cometAuth:
+  account: "/auth/account"
+  email:
+    send: "/auth/email/send"
+    verify: "/auth/email/verify"
+  phone:
+    send: "/auth/phone/send"
+    verify: "/auth/phone/verify"
+  logout: "/auth/logout"
+  snowball:
+    identity: "/auth/snowball/identity"
+    snowballs: "/auth/snowball"
+  solana:
+    start: "/auth/solana/start"
+    verify: "/auth/solana/verify"
+token:
+  definition: "/token/definition/${tokenId}"
+  stats: "/token/definition/${tokenId}/stats"
+  create: "/token/definition"
+  image: "/token/${tokenId}/metadata/${edition}/image.svg"
+cometTokenApi: "/token/query/tokens?address=${snowballAddress}"
+communitySearch: "/search/communities?text="
+payment: "/token/definition/${tokenId}/mint2/payment"
+mint: "/token/definition/${tokenId}/mint2"
+otherAccount: "/users/${userName}"
+home:
+  explore: "/home/explore"
+  userFeed: "/home/feed"
+community:
+  posts: "/community/${communityId}/posts?"
+  upvotePost: "/community/${communityId}/posts/${postId}/upvote"
+  comments: "/community/${communityId}/posts/${postId}/comments?"
+  upvoteComment: "/community/${communityId}/posts/${postId}/comments/${commentId}/upvote"
+  directory: "/community/${communityId}/directory?"
+  fromDomain: "/community?domain=${domain}&findOne=1"
+  create: "/community"
+  access: "/community/${communityId}/access"
+notifications:
+  account: "/notifications/settings"
+  community: "/community/${communityId}/notifications"
+  register: "/notifications/device"
+  deregister: "/notifications/device"
+  getNotifications: "/notifications?"
+  # Options:
+  # until=${date}
+  # count=${count}

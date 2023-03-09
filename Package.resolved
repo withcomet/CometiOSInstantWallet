@@ -1,0 +1,68 @@
+{
+  "pins" : [
+    {
+      "identity" : "aws-sdk-ios-spm",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/aws-amplify/aws-sdk-ios-spm",
+      "state" : {
+        "revision" : "51d99d74be7249ac6444581bd1e394fb60ea86a3",
+        "version" : "2.30.4"
+      }
+    },
+    {
+      "identity" : "beet-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/metaplex-foundation/beet-swift.git",
+      "state" : {
+        "revision" : "e4708bf28b55ce42727006c1cb7882f069d07bd8",
+        "version" : "1.0.7"
+      }
+    },
+    {
+      "identity" : "secp256k1.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Boilertalk/secp256k1.swift.git",
+      "state" : {
+        "revision" : "cd187c632fb812fd93711a9f7e644adb7e5f97f0",
+        "version" : "0.1.7"
+      }
+    },
+    {
+      "identity" : "solana.swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/metaplex-foundation/Solana.Swift",
+      "state" : {
+        "revision" : "f7bd54eee1ccf31f717b1a98b64b9ae12413e66d",
+        "version" : "2.0.2"
+      }
+    },
+    {
+      "identity" : "starscream",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/daltoniam/Starscream.git",
+      "state" : {
+        "revision" : "df8d82047f6654d8e4b655d1b1525c64e1059d21",
+        "version" : "4.0.4"
+      }
+    },
+    {
+      "identity" : "tweetnacl-swiftwrap",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/bitmark-inc/tweetnacl-swiftwrap.git",
+      "state" : {
+        "revision" : "f8fd111642bf2336b11ef9ea828510693106e954",
+        "version" : "1.1.0"
+      }
+    },
+    {
+      "identity" : "yams",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/jpsim/Yams",
+      "state" : {
+        "revision" : "f47ba4838c30dbd59998a4e4c87ab620ff959e8a",
+        "version" : "5.0.5"
+      }
+    }
+  ],
+  "version" : 2
+}

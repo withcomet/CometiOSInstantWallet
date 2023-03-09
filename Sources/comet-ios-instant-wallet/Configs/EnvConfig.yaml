@@ -1,0 +1,23 @@
+---
+local:
+  comet:
+    baseApiUrl: "http://localhost:9000/comet"
+    uploads: "https://dev.cometuploads.com/"
+    uploadApi: "https://api.withcomet.dev/comet/uploads"
+  solanaChainCode: 103
+dev:
+  comet:
+    baseApiUrl: "https://api-dev.withcomet.com/comet"
+    uploads: "https://api.withcomet.dev/comet/uploads/"
+    uploadApi: "https://api.withcomet.dev/comet/uploads"
+  solanaChainCode: 103
+  introTokenIds:
+    - "5947a03a1ac4"
+prod:
+  comet:
+    baseApiUrl: "https://api.withcomet.com/comet"
+    uploads: "https://prod.cometuploads.com/"
+    uploadApi: "https://api.withcomet.com/comet/uploads"
+  solanaChainCode: 101
+  introTokenIds:
+    - "8bbf071c3d5b"
