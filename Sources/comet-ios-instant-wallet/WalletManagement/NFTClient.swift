@@ -7,8 +7,8 @@
 
 import Foundation
 
-class NFTClient {
-    func getNFTList(userWallet: UserWallet, cometApiClient: CometApiClient, listener: @escaping (Result<[TokenModel], Error>) -> Void) {
+public class NFTClient {
+    public func getNFTList(userWallet: UserWallet, cometApiClient: CometApiClient, listener: @escaping (Result<[TokenModel], Error>) -> Void) {
         Task {
             do {
                 var tokens: [TokenModel] = []
@@ -31,13 +31,13 @@ class NFTClient {
         }
     }
     
-    func getNFTMetadata(token: TokenModel, cometApiClient: CometApiClient, listener: @escaping (Result<NFTDetailsModel, Error>) -> Void) {
+    public func getNFTMetadata(token: TokenModel, cometApiClient: CometApiClient, listener: @escaping (Result<TokenModel.NFTDetailsModel, Error>) -> Void) {
         Task {
             do {
                 let (data, resp) = try await cometApiClient.baseCometCall(url: cometApiClient.configManager.baseConfig.token.definition.replacingOccurrences(of: "${tokenId}", with: token.id), postType: "GET")
                 
                 resp.handleResponse(data: data, defaultErrorMsg: "Failed getNFTMetadata's call to Comet API.", listener: listener) {
-                    let nftDetailsModel = try JSONDecoder().decode(NFTDetailsModel.self, from: data)
+                    let nftDetailsModel = try JSONDecoder().decode(TokenModel.NFTDetailsModel.self, from: data)
                     return nftDetailsModel
                 }
             } catch {

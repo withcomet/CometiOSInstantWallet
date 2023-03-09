@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct TokenModel: Decodable, Identifiable {
-    var id = UUID().uuidString
+public struct TokenModel: Decodable, Identifiable {
+    public var id = UUID().uuidString
     var name: String, symbol: String, description: String? = nil, seller_fee_basis_points: Int? = nil, image: String? = nil, edition: String? = nil
     var chainUrl: String? = nil
     var minted: Int? = nil
@@ -28,58 +28,45 @@ struct TokenModel: Decodable, Identifiable {
         description = detailsModel.metadata.config.description
         communities = detailsModel.communities
     }
-}
-
-struct NFTDetailsModel: Decodable {
-    var id: String? = nil, name: String, chainType: String, chainId: Int, subtype: String, symbol: String? = nil
-    var metadata: Metadata
-    struct Metadata: Decodable {
-        var config: Config
-        struct Config: Decodable {
-            var price: Double, pricingModel: String? = nil, publicKey: String? = nil, description: String
-            @Flexible var maxSupply: String
+    public struct NFTDetailsModel: Decodable {
+        var id: String? = nil, name: String, chainType: String, chainId: Int, subtype: String, symbol: String? = nil
+        var metadata: Metadata
+        struct Metadata: Decodable {
+            var config: Config
+            struct Config: Decodable {
+                var price: Double, pricingModel: String? = nil, publicKey: String? = nil, description: String
+                @Flexible var maxSupply: String
+            }
         }
+        var communities: [CommunityModel]? = nil
     }
-    var communities: [CommunityModel]? = nil
 }
 
-struct CommunityModel: Decodable, Identifiable, Equatable {
-    static func == (lhs: CommunityModel, rhs: CommunityModel) -> Bool {
+public struct CommunityModel: Decodable, Identifiable, Equatable {
+    public static func == (lhs: CommunityModel, rhs: CommunityModel) -> Bool {
         return lhs.id == rhs.id
     }
     
-    var id: String, profilePicUpload: String? = nil, bannerPicUpload: String? = nil, name: String? = nil, description: String? = nil, domain: String? = nil
+    public var id: String, profilePicUpload: String? = nil, bannerPicUpload: String? = nil, name: String? = nil, description: String? = nil, domain: String? = nil
     var posts: Posts? = nil
     var directory: [DirectoryModel]? = nil
     var tokens: [TokenResponseFromDomain]? = nil
     var memberSettings: MemberSettings? = nil
-    struct TokenResponseFromDomain: Decodable, Identifiable {
-        var id: String
+    public struct TokenResponseFromDomain: Decodable, Identifiable {
+        public var id: String
         var name: String, symbol: String
-        var metadata: NFTDetailsModel.Metadata
+        var metadata: TokenModel.NFTDetailsModel.Metadata
     }
-    struct MemberSettings: Decodable {
+    public struct MemberSettings: Decodable {
         var postNotifications: String? = nil
         var replyNotifications: String? = nil
         var upvoteNotifications: String? = nil
     }
-}
-
-struct DirectoryModel: Codable, Hashable, Identifiable {
-    var id: String, username: String
-}
-
-struct TokenDescription: Decodable, Identifiable {
-    var id: String? = nil, name: String? = nil, symbol: String? = nil
-    var metadata: Metadata? = nil
-    var communities: [Community]? = nil
-    struct Metadata: Decodable {
-        var config: Config? = nil
-        struct Config: Decodable {
-            var price: Double? = nil, maxSupply: Int? = nil, description: String? = nil, backgroundUpload: String? = nil
-        }
-    }
-    struct Community: Decodable {
-        var domain: String? = nil
+    public struct DirectoryModel: Codable, Hashable, Identifiable {
+        public var id: String, username: String
     }
 }
+
+
+
+

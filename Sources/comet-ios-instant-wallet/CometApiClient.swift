@@ -8,10 +8,10 @@
 import Foundation
 import Yams
 
-class CometApiClient {
+public class CometApiClient {
     var userCometAuthKey: String? = nil
-    var configManager: ConfigManager
-    init(userCometAuthKey: String? = nil, configManager: ConfigManager) {
+    public var configManager: ConfigManager
+    public init(userCometAuthKey: String? = nil, configManager: ConfigManager) {
         self.userCometAuthKey = userCometAuthKey
         self.configManager = configManager
     }

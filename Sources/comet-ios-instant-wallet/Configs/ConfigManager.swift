@@ -8,11 +8,11 @@
 import Foundation
 import Yams
 
-class ConfigManager {
+public class ConfigManager {
     let env : EnvironmentType
     var baseConfig : BaseConfigModel
     var envConfig : EnvConfig.Environment
-    init(environment: EnvironmentType) {
+    public init(environment: EnvironmentType) {
         let baseConfigData = Helpers.getDataFromFile(fileName: "BaseConfig", type: "yaml")!
         baseConfig = try! YAMLDecoder().decode(BaseConfigModel.self, from: baseConfigData)
 

@@ -73,6 +73,6 @@ class CometWalletClient {
         snowballClient.getCognitoIdentity()
     }
 }
-enum EnvironmentType {
+public enum EnvironmentType {
     case dev, prod
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct UserWallet: Decodable, Hashable {
+public struct UserWallet: Decodable, Hashable {
     var address: String
     var privateKey: String
     var chainId: Int
